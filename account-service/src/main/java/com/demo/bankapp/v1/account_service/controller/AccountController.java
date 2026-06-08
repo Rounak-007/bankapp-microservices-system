@@ -26,7 +26,7 @@ public class AccountController {
     private final ConfigProperties configProperties;
 
     //@Value("${message}")
-    @Value("${message: This is Default fallback message}")
+    @Value("${message: Default fallback message}")
     String msg;
 
     public AccountController(AccountService accountService, ConfigProperties configProperties) {
