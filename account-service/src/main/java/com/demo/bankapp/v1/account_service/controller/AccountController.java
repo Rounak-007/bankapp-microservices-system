@@ -33,7 +33,7 @@ public class AccountController {
         this.configProperties = configProperties;
     }
 
-    @GetMapping("/test")
+    @GetMapping("/home")
     public String test() {
         return "Hello Dear Customer...." + configProperties.getMessage();
     }
