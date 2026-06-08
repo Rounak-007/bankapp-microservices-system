@@ -25,12 +25,18 @@ public class AccountController {
     private final AccountService accountService;
     private final ConfigProperties configProperties;
 
-    @Value("${message}")
+    //@Value("${message}")
+    @Value("${message:Default fallback message}")
     String msg;
 
     public AccountController(AccountService accountService, ConfigProperties configProperties) {
         this.accountService = accountService;
         this.configProperties = configProperties;
+    }
+
+    @GetMapping("/welcome")
+    public String welcomeMsg() {
+        return "Welcome to Github actions Demo of Account-Service";
     }
 
     @GetMapping("/home")
