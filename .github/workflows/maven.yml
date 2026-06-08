@@ -11,21 +11,62 @@ name: Java CI with Maven
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'account-service/**'
+      - 'api-gateway/**'
+      - 'config-server/**'
+      - 'customer-service/**'
+      - 'service-registry/**'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'account-service/**'
+      - 'api-gateway/**'
+      - 'config-server/**'
+      - 'customer-service/**'
+      - 'service-registry/**'
 
 jobs:
-  build:
-
+  build-and-deploy:
     runs-on: ubuntu-latest
 
+    strategy:
+      # Ensures that if one service build fails, the other 4 keep running
+      fail-fast: false
+      matrix:
+        service: [
+          'account-service',
+          'api-gateway',
+          'config-server',
+          'customer-service',
+          'service-registry'
+        ]
+
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # Required for paths-filter to accurately check changes
+
+      # This smart filter checks if this specific service directory had changes in this commit
+      - name: Check for Changes in ${{ matrix.service }}
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            changed:
+              - '${{ matrix.service }}/**'
+
+      - name: Set up JDK 17
+        if: steps.filter.outputs.changed == 'true'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build with Maven
+        if: steps.filter.outputs.changed == 'true'
+        run: |
+          cd ${{ matrix.service }}
+          mvn clean package -DskipTests
