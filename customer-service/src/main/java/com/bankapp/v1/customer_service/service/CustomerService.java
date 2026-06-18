@@ -2,6 +2,8 @@ package com.bankapp.v1.customer_service.service;
 
 import java.util.List;
 
+import com.bankapp.v1.customer_service.dto.AccountResponseDto;
+import com.bankapp.v1.customer_service.dto.CustomerProfileDetailsDto;
 import com.bankapp.v1.customer_service.dto.CustomerRequestDto;
 import com.bankapp.v1.customer_service.dto.CustomerResponseDto;
 import com.bankapp.v1.customer_service.model.Customer;
@@ -20,10 +22,5 @@ public interface CustomerService {
 
     void deleteCustomer(String customerId);
 
-    CustomerResponseDto closeCustomerRecord(String customerId);
-
-    void deleteCustomerAndAccount(String customerId);
-
-    CustomerResponseDto reopenCustomer(String customerId);
-
+    CustomerProfileDetailsDto fetchAccountsAndAggregate(String customerId);
 }

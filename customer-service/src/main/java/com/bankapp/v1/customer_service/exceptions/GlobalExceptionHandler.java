@@ -1,8 +1,8 @@
 package com.bankapp.v1.customer_service.exceptions;
 
-import feign.FeignException;
+import com.bankapp.v1.customer_service.exceptions.classes.*;
+import com.bankapp.v1.customer_service.exceptions.responses.ErrorResponse;
 import jakarta.validation.ConstraintViolationException;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestControllerAdvice
@@ -43,10 +42,43 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<String> handleConstraintViolation(
-            ConstraintViolationException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(ex.getMessage());
+    public ResponseEntity<ErrorResponse> handleConstraintViolation(ConstraintViolationException ex) {
+        System.out.println("Inside ConstraintValidationException...");
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getConstraintViolations()
+                .forEach(violation -> {
+                    String path = violation
+                            .getPropertyPath()
+                            .toString();
+
+                    String field = path.substring(path.lastIndexOf('.') + 1);
+                    errors.put(
+                            field,
+                            violation.getMessage());
+                });
+
+        return ResponseEntity
+                .badRequest()
+                .body(new ErrorResponse(
+                                "Validation failed",
+                                errors,
+                                HttpStatus.BAD_REQUEST.value(),
+                                LocalDateTime.now()
+                        )
+                );
+    }
+
+    @ExceptionHandler(DownstreamServiceUnavailableException.class)
+    public ResponseEntity<ErrorResponse> handleDownstreamServiceUnavailable(DownstreamServiceUnavailableException ex) {
+        return ResponseEntity
+                .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(new ErrorResponse(
+                        ex.getMessage(),
+                        null,
+                        HttpStatus.SERVICE_UNAVAILABLE.value(),
+                        LocalDateTime.now()
+                ));
     }
 
     @ExceptionHandler(Exception.class)

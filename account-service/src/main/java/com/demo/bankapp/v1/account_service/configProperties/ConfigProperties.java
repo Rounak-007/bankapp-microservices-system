@@ -5,42 +5,41 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 @Component
-@RefreshScope
-@ConfigurationProperties
+@ConfigurationProperties(prefix = "account")
 public class ConfigProperties {
 
-	private String message;
-	
-	private String customerIdExceptionMsg;
-	private String accountIdExceptionMsg;
-			
-	public String getMessage() {
-		return message;
-	}
+    private String message;
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    private String customerIdExceptionMsg;
+    private String accountIdExceptionMsg;
 
-	public String getCustomerIdExceptionMsg() {
-		return customerIdExceptionMsg;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public void setCustomerIdExceptionMsg(String customerIdExceptionMsg) {
-		this.customerIdExceptionMsg = customerIdExceptionMsg;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public String getAccountIdExceptionMsg() {
-		return accountIdExceptionMsg;
-	}
+    public String getCustomerIdExceptionMsg() {
+        return customerIdExceptionMsg;
+    }
 
-	public void setAccountIdExceptionMsg(String accountIdExceptionMsg) {
-		this.accountIdExceptionMsg = accountIdExceptionMsg;
-	}
+    public void setCustomerIdExceptionMsg(String customerIdExceptionMsg) {
+        this.customerIdExceptionMsg = customerIdExceptionMsg;
+    }
 
-	@Override
-	public String toString() {
-		return "ConfigProperties [message=" + message + ", customerIdExceptionMsg=" + customerIdExceptionMsg
-				+ ", accountIdExceptionMsg=" + accountIdExceptionMsg + "]";
-	}
+    public String getAccountIdExceptionMsg() {
+        return accountIdExceptionMsg;
+    }
+
+    public void setAccountIdExceptionMsg(String accountIdExceptionMsg) {
+        this.accountIdExceptionMsg = accountIdExceptionMsg;
+    }
+
+    @Override
+    public String toString() {
+        return "ConfigProperties [message=" + message + ", customerIdExceptionMsg=" + customerIdExceptionMsg
+                + ", accountIdExceptionMsg=" + accountIdExceptionMsg + "]";
+    }
 }

@@ -36,14 +36,13 @@ public class AccountController {
 
     @GetMapping("/welcome")
     public String welcomeMsg() {
-        return "Welcome to Github actions Demo of Account-Service";
+        return "Welcome to Github actions Demo of Account-Service "+ msg;
     }
 
     @GetMapping("/home")
-    public String test() {
-        return "Hello Dear Customer...." + configProperties.getMessage();
+    public String homePageMsg() {
+        return "Hello Dear Account-Holder...." + configProperties.getMessage();
     }
-
 
     @PostMapping
     public ResponseEntity<AccountResponseDto> createAccount(@RequestBody @Valid AccountRequestDto requestDto) {

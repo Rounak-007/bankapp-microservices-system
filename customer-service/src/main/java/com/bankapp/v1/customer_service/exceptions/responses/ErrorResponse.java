@@ -1,11 +1,10 @@
-package com.bankapp.v1.customer_service.exceptions;
+package com.bankapp.v1.customer_service.exceptions.responses;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 public record ErrorResponse(
-        String globalMessage,        // E.g., "Validation failed for the request"
+        String message,
         Map<String, String> errors,
         int status,
         LocalDateTime timestamp) {
