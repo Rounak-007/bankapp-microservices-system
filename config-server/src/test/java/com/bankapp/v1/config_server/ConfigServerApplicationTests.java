@@ -1,4 +1,4 @@
-package com.nagarro.bankapp.config_server;
+package com.bankapp.v1.config_server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;

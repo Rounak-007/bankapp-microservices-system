@@ -19,7 +19,7 @@ public class FallBackController {
         accountFallBackBody.put("timestamp", LocalDateTime.now().toString());
         accountFallBackBody.put("status", HttpStatus.SERVICE_UNAVAILABLE.toString());
         accountFallBackBody.put("error", "Service Unavailable");
-        accountFallBackBody.put("message", "The Account system is currently undergoing maintenance. Please try again later.");
+        accountFallBackBody.put("message", "The Account Service is currently undergoing maintenance. Please try again later.");
         accountFallBackBody.put("source", "api-gateway-fallback");
 
         return new ResponseEntity<>(accountFallBackBody, HttpStatus.SERVICE_UNAVAILABLE);
@@ -31,7 +31,7 @@ public class FallBackController {
         customerFallBackBody.put("timestamp", LocalDateTime.now().toString());
         customerFallBackBody.put("status", HttpStatus.SERVICE_UNAVAILABLE.toString());
         customerFallBackBody.put("error", "Service Unavailable");
-        customerFallBackBody.put("message", "The Account system is currently undergoing maintenance. Please try again later.");
+        customerFallBackBody.put("message", "The Customer Service is currently undergoing maintenance. Please try again later.");
         customerFallBackBody.put("source", "api-gateway-fallback");
 
         return new ResponseEntity<>(customerFallBackBody, HttpStatus.SERVICE_UNAVAILABLE);

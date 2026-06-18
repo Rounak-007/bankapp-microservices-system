@@ -32,7 +32,7 @@ jobs:
         service: [
           'account-service',
           'api-gateway',
-          'config-server',
+          'config_server',
           'customer-service',
           'service-registry'
         ]
@@ -93,7 +93,7 @@ jobs:
         service: [
           'account-service',
           'api-gateway',
-          'config-server',
+          'config_server',
           'customer-service',
           'service-registry'
         ]
