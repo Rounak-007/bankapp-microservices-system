@@ -41,7 +41,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2 # Required for paths-filter to accurately check changes
+          fetch-depth: 0 # Required for paths-filter to accurately check changes
 
       # This smart filter checks if this specific service directory had changes in this commit
       - name: Check for Changes in ${{ matrix.service }}
@@ -101,13 +101,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       # We still need the filter here so we know whether to skip the docker steps
-      - name: Check for Changes
+      - name: Check for Changes in ${{ matrix.service }}
         id: filter
         uses: dorny/paths-filter@v3
         with:
+          base: ${{ github.ref_name }}
           filters: |
             changed:
               - '${{ matrix.service }}/**'

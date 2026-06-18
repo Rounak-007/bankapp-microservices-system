@@ -15,24 +15,26 @@ public class FallBackController {
 
     @RequestMapping("/account-service")
     public ResponseEntity<Map<String, String>> accountFallback() {
-//        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
-//                .body("Account Service is taking too long to respond or is down. Please try again later.");
+        Map<String, String> accountFallBackBody = new HashMap<>();
+        accountFallBackBody.put("timestamp", LocalDateTime.now().toString());
+        accountFallBackBody.put("status", HttpStatus.SERVICE_UNAVAILABLE.toString());
+        accountFallBackBody.put("error", "Service Unavailable");
+        accountFallBackBody.put("message", "The Account system is currently undergoing maintenance. Please try again later.");
+        accountFallBackBody.put("source", "api-gateway-fallback");
 
-        Map<String, String> body = new HashMap<>();
-        body.put("timestamp", LocalDateTime.now().toString());
-        body.put("status", HttpStatus.SERVICE_UNAVAILABLE.toString());
-        body.put("error", "Service Unavailable");
-        body.put("message", "The Account system is currently undergoing maintenance. Please try again later.");
-        body.put("source", "api-gateway-fallback");
-
-        return new ResponseEntity<>(body, HttpStatus.SERVICE_UNAVAILABLE);
+        return new ResponseEntity<>(accountFallBackBody, HttpStatus.SERVICE_UNAVAILABLE);
     }
 
-    //@GetMapping("/customer-service")
     @RequestMapping("/customer-service")
-    public ResponseEntity<String> customerFallback() {
-        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
-                .body("Customer Service is currently unavailable.");
+    public ResponseEntity<Map<String, String>> customerFallback() {
+        HashMap<String, String> customerFallBackBody = new HashMap<>();
+        customerFallBackBody.put("timestamp", LocalDateTime.now().toString());
+        customerFallBackBody.put("status", HttpStatus.SERVICE_UNAVAILABLE.toString());
+        customerFallBackBody.put("error", "Service Unavailable");
+        customerFallBackBody.put("message", "The Account system is currently undergoing maintenance. Please try again later.");
+        customerFallBackBody.put("source", "api-gateway-fallback");
+
+        return new ResponseEntity<>(customerFallBackBody, HttpStatus.SERVICE_UNAVAILABLE);
     }
 }
 

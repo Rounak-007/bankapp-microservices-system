@@ -8,7 +8,7 @@ public class EnvChecker {
 
     @PostConstruct
     public void check() {
-        System.out.println("GIT_USERNAME=" + System.getenv("GIT_USERNAME"));
-        System.out.println("GIT_PASSWORD=" + System.getenv("GIT_PASSWORD"));
+        System.out.println("This is the GIT_USERNAME=" + System.getenv("GIT_USERNAME"));
+        System.out.println("This is the GIT_PASSWORD=" + System.getenv("GIT_PASSWORD"));
     }
 }
