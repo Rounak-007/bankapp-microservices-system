@@ -30,9 +30,10 @@ class AccountControllerTest {
 
     @Test
     void welcomeMsg() throws Exception {
+        String mockMessage = "Default fallback message";
         mockMvc.perform(get("/api/accounts/welcome"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Welcome to Github actions Demo of Account-Service"));
+                .andExpect(content().string("Welcome to Github actions Demo of Account-Service " + mockMessage));
     }
 
     @Test
@@ -44,6 +45,6 @@ class AccountControllerTest {
         // 2. Act & Assert: Perform the GET request and verify the output
         mockMvc.perform(get("/api/accounts/home"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Hello Dear Customer...." + mockMessage));
+                .andExpect(content().string("Hello Dear Account-Holder...." + mockMessage));
     }
 }

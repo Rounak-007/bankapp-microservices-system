@@ -1,6 +1,8 @@
 package com.bankapp.v1.customer_service.controller;
 
+import com.bankapp.v1.customer_service.service.CustomerClosureService;
 import com.bankapp.v1.customer_service.service.CustomerService;
+import com.bankapp.v1.customer_service.service.helper.CustomerServiceHelper;
 import org.h2.security.auth.ConfigProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,11 @@ class CustomerControllerTest {
 
     @MockitoBean
     private CustomerService customerService;
+
+    @MockitoBean
+    private CustomerClosureService customerClosureService;
+    @MockitoBean
+    private CustomerServiceHelper customerServiceHelper;
 
     @MockitoBean
     private ConfigProperties configProperties;
